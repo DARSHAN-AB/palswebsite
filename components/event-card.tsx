@@ -23,7 +23,7 @@ export function EventCard({ event }: EventCardProps) {
 
   return (
     <GlassCard className="h-full rounded-2xl">
-      <Link href={`/events/${event.id}`}>
+      <Link href={`/events/${event.slug}`}>
         {/* clear-glass card — uses .glass-card utility */}
         <div className="group h-full glass-card rounded-2xl overflow-hidden cursor-pointer">
           {/* Image */}

@@ -15,6 +15,8 @@ export interface Event {
   featured:    boolean
   status:      EventStatus
   slug:        string
+  /** Gallery photos for this event — first item is always the cover (event.image) */
+  photos?:     string[]
 }
 
 export const events: Event[] = [
@@ -30,8 +32,16 @@ export const events: Event[] = [
     category:    'conference',
     attendees:   2500,
     featured:    true,
-    status:      'LIVE',
+    status:      'UPCOMING',
     slug:        'future-of-ai-innovation-summit',
+    photos: [
+      'https://images.unsplash.com/photo-1540575467063-178f50002cbc?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&h=600&fit=crop',
+    ],
   },
   {
     id:          '2',
@@ -45,73 +55,39 @@ export const events: Event[] = [
     category:    'workshop',
     attendees:   150,
     featured:    true,
-    status:      'PAST',
+    status:      'LIVE',
     slug:        'vibe-coding-unplugged',
+    photos: [
+      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop',
+    ],
   },
   {
     id:          '3',
-    title:       'Startup Founder Networking Night',
+    title:       'Think 2 Impact 2026',
     description: 'Connect with founders, investors, and mentors.',
-    date:        '2026-09-28',
-    time:        '6:00 PM – 9:00 PM',
-    location:    'Rooftop Venue',
+    date:        '2026-03-14',
+    time:        '9:00 AM – 6:00 PM',
+    location:    'Seminar Hall 1, Academic Block',
     mode:        'Offline',
-    image:       'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=700&h=420&fit=crop',
-    category:    'networking',
+    image:       './think2impact.jpg',
+    category:    'Hackathon',
     attendees:   300,
     featured:    true,
-    status:      'UPCOMING',
-    slug:        'startup-founder-networking-night',
-  },
-  {
-    id:          '4',
-    title:       'Cloud Infrastructure Deep Dive',
-    description: 'Master modern cloud architecture and DevOps best practices.',
-    date:        '2025-10-05',
-    time:        '2:00 PM – 5:00 PM',
-    location:    'Online',
-    mode:        'Virtual',
-    image:       'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=700&h=420&fit=crop',
-    category:    'webinar',
-    attendees:   850,
-    featured:    false,
     status:      'PAST',
-    slug:        'cloud-infrastructure-deep-dive',
-  },
-  {
-    id:          '5',
-    title:       'Design System Excellence',
-    description: 'Learn how leading companies build and maintain design systems.',
-    date:        '2026-10-12',
-    time:        '10:00 AM – 4:00 PM',
-    location:    'Design Hub – Bay Area',
-    mode:        'Hybrid',
-    image:       'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=700&h=420&fit=crop',
-    category:    'workshop',
-    attendees:   200,
-    featured:    false,
-    status:      'UPCOMING',
-    slug:        'design-system-excellence',
-  },
-  {
-    id:          '6',
-    title:       'Product Strategy Masterclass',
-    description: 'Build products that users love with top product leaders.',
-    date:        '2025-10-19',
-    time:        '9:00 AM – 12:00 PM',
-    location:    'Online',
-    mode:        'Virtual',
-    image:       'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&h=420&fit=crop',
-    category:    'webinar',
-    attendees:   1200,
-    featured:    false,
-    status:      'PAST',
-    slug:        'product-strategy-masterclass',
+    slug:        'think-2-impact-2026',
+    photos: [
+      'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=600&fit=crop',
+    ],
   },
 ]
 
-export const getEventById = (id: string): Event | undefined =>
-  events.find(e => e.id === id)
+export const getEventById = (idOrSlug: string): Event | undefined =>
+  events.find(e => e.id === idOrSlug || e.slug === idOrSlug)
 
 export const getFeaturedEvents = (): Event[] =>
   events.filter(e => e.featured)

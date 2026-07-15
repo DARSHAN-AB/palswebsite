@@ -35,8 +35,8 @@ export default function RootLayout({
           {children}
         </div>
 
-        {/* Global footer */}
-        <div className="relative z-10">
+        {/* Global footer — cream top padding creates whitespace gap on all pages */}
+        <div className="relative z-10" style={{ background: '#f5f0eb', paddingTop: '64px' }}>
           <Footer />
         </div>
       </body>

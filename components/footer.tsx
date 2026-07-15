@@ -53,7 +53,7 @@ function FLink({ href, label }: { href: string; label: string }) {
       <Link
         href={href}
         style={{
-          fontSize: "14px",
+          fontSize: "12px",
           color: hov ? "#ffffff" : "rgba(255,255,255,0.65)",
           transition: "color 200ms ease",
         }}
@@ -129,10 +129,10 @@ function NewsletterForm() {
 export function Footer() {
   return (
     /* Outer section — same page padding used across all sections */
-    <section className="py-10 bg-transparent">
-      <div className="w-full px-14 lg:px-28">
+    <section className="py-0" style={{ background: '#f5f0eb' }}>
+      <div className="w-full px-5 lg:px-10">
 
-        {/* Black rounded container */}
+        {/* Black container — rounded top corners only, flat bottom, flush width */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -140,8 +140,8 @@ export function Footer() {
           transition={{ duration: 0.65, ease: EASE }}
           style={{
             background:   "#000",
-            borderRadius: "36px",
-            padding:      "56px 56px 40px",
+            borderRadius: "32px 32px 0 0",   /* rounded top, flat bottom */
+            padding: "70px 160px 45px",
           }}
         >
 
@@ -166,13 +166,13 @@ export function Footer() {
                 }}>
                   <span style={{ color:"#fff", fontSize:"13px", fontWeight:900, letterSpacing:"-0.02em" }}>IH</span>
                 </div>
-                <span style={{ color:"#fff", fontSize:"16px", fontWeight:800, letterSpacing:"-0.01em" }}>
+                <span style={{ color:"#fff", fontSize:"13px", fontWeight:800, letterSpacing:"-0.01em" }}>
                   InnovatorsHub
                 </span>
               </div>
 
               {/* Tagline */}
-              <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.50)", lineHeight: 1.65, maxWidth: "220px" }}>
+              <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.50)", lineHeight: 1.65, maxWidth: "200px" }}>
                 Empowering students through innovation, hackathons, workshops and real-world experiences.
               </p>
 
@@ -233,7 +233,7 @@ export function Footer() {
                           textTransform:"uppercase", color: YELLOW, marginBottom:"14px" }}>
                 Stay Updated
               </p>
-              <p style={{ fontSize:"13px", color:"rgba(255,255,255,0.50)", lineHeight:1.65, maxWidth:"240px" }}>
+              <p style={{ fontSize:"11px", color:"rgba(255,255,255,0.50)", lineHeight:1.65, maxWidth:"220px" }}>
                 Get notified about upcoming hackathons, workshops and community events.
               </p>
               <NewsletterForm />
@@ -246,13 +246,13 @@ export function Footer() {
 
           {/* ── Bottom row ────────────────────────────────────── */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p style={{ fontSize:"12px", color:"rgba(255,255,255,0.35)" }}>
+            <p style={{ fontSize:"10px", color:"rgba(255,255,255,0.35)" }}>
               © {new Date().getFullYear()} PALS Club BMSIT&M. All Rights Reserved.
             </p>
             <div className="flex gap-5">
               {[["Terms","#"],["Privacy","#"],["Contact","/contact"]].map(([label,href])=>(
                 <Link key={label} href={href}
-                  style={{ fontSize:"12px", color:"rgba(255,255,255,0.35)",
+                  style={{ fontSize:"10px", color:"rgba(255,255,255,0.35)",
                            transition:"color 200ms ease" }}
                   onMouseEnter={e=>(e.currentTarget.style.color="#fff")}
                   onMouseLeave={e=>(e.currentTarget.style.color="rgba(255,255,255,0.35)")}

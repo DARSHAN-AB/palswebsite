@@ -1,132 +1,336 @@
-'use client'
+"use client";
 
-import { ScrollReveal } from '@/components/ui/scroll-reveal'
-import { GlassCard }    from '@/components/ui/glass-card'
-import { Mail, MapPin, Phone, Send, CheckCircle } from 'lucide-react'
-import { useState }     from 'react'
+import { useState } from "react";
+import { motion }   from "framer-motion";
+import { Mail, Globe, ArrowRight, Send, CheckCircle } from "lucide-react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+// ─── Field component ──────────────────────────────────────────────────────
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-1.5">
+      <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.14em", color: "#888", textTransform: "uppercase" }}>
+        {label}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  background: "#f5f5f5",
+  border: "1px solid #ebebeb",
+  borderRadius: "10px",
+  padding: "13px 16px",
+  fontSize: "14px",
+  color: "#111",
+  outline: "none",
+  transition: "border-color 200ms ease",
+};
+
+// ─── Card 1 — Contact info (hover: lime border + lime Globe) ─────────────
+function Card1() {
+  const [hov, setHov] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        background:    "#1a1a1e",
+        borderRadius:  "22px",
+        padding:       "28px",
+        border:        hov ? "1px solid #bef264" : "1px solid rgba(255,255,255,0.08)",
+        position:      "relative",
+        overflow:      "hidden",
+        transition:    "border-color 280ms ease",
+      }}
+    >
+      <Globe
+        size={44}
+        strokeWidth={1.2}
+        style={{
+          position:   "absolute", top: "22px", right: "22px",
+          color:      hov ? "#bef264" : "rgba(255,255,255,0.20)",
+          transition: "color 280ms ease",
+        }}
+      />
+      <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.18em", color: "#666", textTransform: "uppercase", marginBottom: "10px" }}>
+        Global HQ
+      </p>
+      <h2 className="text-white font-black uppercase leading-tight"
+        style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.6rem)", letterSpacing: "-0.02em", marginBottom: "24px" }}>
+        Bangalore<br />Karnataka, India
+      </h2>
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "18px" }}>
+        <a href="mailto:club@bmsit.in" className="inline-flex items-center gap-2"
+          style={{ fontSize: "13px", color: "rgba(255,255,255,0.60)", transition: "color 200ms ease" }}
+          onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+          onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.60)")}>
+          <Mail size={14} style={{ flexShrink: 0 }} />
+          club@bmsit.in
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// ─── Card 2 — Partner card (taller, arrow rotates 45° on hover) ───────────
+function Card2() {
+  const [hov, setHov] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        background:   "#bef264",
+        borderRadius: "22px",
+        padding:      "28px 28px 28px 28px",
+        minHeight:    "320px",
+        position:     "relative",
+        overflow:     "hidden",
+        display:      "flex",
+        flexDirection:"column",
+        transition:   "filter 280ms ease",
+        filter:       hov ? "brightness(1.06)" : "brightness(1)",
+      }}
+    >
+      {/* Arrow — rotates to point right on hover */}
+      <ArrowRight
+        size={22}
+        style={{
+          position:   "absolute", top: "24px", right: "24px",
+          color:      "#000",
+          transform:  hov ? "rotate(0deg)" : "rotate(-45deg)",
+          transition: "transform 320ms cubic-bezier(0.34,1.56,0.64,1)",
+        }}
+      />
+
+      {/* Status badge */}
+      <div className="inline-flex items-center gap-1.5 mb-5">
+        <span className="rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest"
+          style={{ background: "rgba(0,0,0,0.15)", color: "#000" }}>
+          Status :: Online
+        </span>
+      </div>
+
+      <h3 className="font-black uppercase leading-tight text-black"
+        style={{ fontSize: "clamp(1.1rem, 2.2vw, 1.45rem)", letterSpacing: "-0.02em", marginBottom: "auto" }}>
+        We are actively<br />recruiting partners.
+      </h3>
+
+      <button
+        className="w-full font-black uppercase tracking-widest rounded-full py-3.5 text-white text-[12px] mt-8"
+        style={{ background: "#000", border: "none", cursor: "pointer", transition: "background 250ms ease", letterSpacing: "0.10em" }}
+        onMouseEnter={e => (e.currentTarget.style.background = "#222")}
+        onMouseLeave={e => (e.currentTarget.style.background = "#000")}
+      >
+        Apply to Partner
+      </button>
+    </div>
+  );
+}
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false)
-  const [loading,   setLoading]   = useState(false)
+  const [submitted, setSubmitted] = useState(false);
+  const [loading,   setLoading]   = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    await new Promise(r => setTimeout(r, 900))
-    setLoading(false)
-    setSubmitted(true)
-  }
+    e.preventDefault();
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 900));
+    setLoading(false);
+    setSubmitted(true);
+  };
 
   return (
-    <main className="min-h-screen pt-28 pb-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+    <main
+      className="min-h-screen"
+      style={{
+        background: "#0e0e10",
+        // subtle dot grid
+        backgroundImage:
+          "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+      }}
+    >
+      <div className="w-full px-10 lg:px-20 pt-32 pb-20">
 
-        <ScrollReveal className="max-w-2xl space-y-4">
-          <h1 className="text-5xl sm:text-6xl font-bold text-white">Get in Touch</h1>
-          <p className="text-lg text-gray-300">
-            Interested in joining, partnering, or just saying hello? We'd love to hear from you.
-          </p>
-        </ScrollReveal>
-
-        <div className="grid lg:grid-cols-5 gap-8">
-
-          {/* Contact info */}
-          <div className="lg:col-span-2 space-y-4">
-            {[
-              { icon: <Mail   size={17} className="text-cyan-400" />, label: 'Email',    value: 'club@university.edu',             href: 'mailto:club@university.edu' },
-              { icon: <Phone  size={17} className="text-cyan-400" />, label: 'Phone',    value: '+1 (555) 000-1234',               href: 'tel:+15550001234' },
-              { icon: <MapPin size={17} className="text-cyan-400" />, label: 'Location', value: 'Eng. Building, Room 204\nState University', href: null },
-            ].map((c, i) => (
-              <ScrollReveal key={c.label} delay={i * 0.08}>
-                <GlassCard>
-                  <div className="glass-card rounded-xl p-4 flex gap-4 items-start">
-                    <div className="w-9 h-9 glass-card rounded-lg flex items-center justify-center flex-shrink-0">
-                      {c.icon}
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-400 mb-0.5">{c.label}</p>
-                      {c.href ? (
-                        <a href={c.href} className="text-white text-sm font-medium hover:text-cyan-300 transition-colors whitespace-pre-line">{c.value}</a>
-                      ) : (
-                        <p className="text-white text-sm font-medium whitespace-pre-line">{c.value}</p>
-                      )}
-                    </div>
-                  </div>
-                </GlassCard>
-              </ScrollReveal>
-            ))}
-
-            <ScrollReveal delay={0.24}>
-              <GlassCard>
-                <div className="glass-card rounded-xl p-5 space-y-3">
-                  <p className="text-white font-semibold text-sm">Meeting Hours</p>
-                  <ul className="text-sm text-gray-300 space-y-1">
-                    <li className="flex justify-between"><span>Wednesday</span><span className="text-cyan-300">6:00 – 8:00 PM</span></li>
-                    <li className="flex justify-between"><span>Saturday</span><span className="text-cyan-300">11:00 AM – 1:00 PM</span></li>
-                    <li className="text-xs text-gray-500 pt-1">Engineering Building, Room 204</li>
-                  </ul>
-                </div>
-              </GlassCard>
-            </ScrollReveal>
+        {/* ══════════════════════════════════════
+            HERO
+            ══════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.72, ease: EASE }}
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-8"
+        >
+          {/* Left heading */}
+          <div>
+            <h1
+              className="uppercase leading-none font-black tracking-tight"
+              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}
+            >
+              <span className="block text-white">Contact</span>
+              <span
+                className="block"
+                style={{
+                  background: "linear-gradient(90deg, #bef264 0%, #84cc16 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Protocol.
+              </span>
+            </h1>
           </div>
 
-          {/* Form */}
-          <ScrollReveal delay={0.1} className="lg:col-span-3">
-            <GlassCard className="h-full">
-              <div className="glass-card rounded-2xl p-8 h-full">
-                {submitted ? (
-                  <div className="flex flex-col items-center justify-center h-full py-12 space-y-4 text-center">
-                    <CheckCircle size={52} className="text-cyan-400" />
-                    <h3 className="text-2xl font-bold text-white">Message Sent!</h3>
-                    <p className="text-gray-300 max-w-sm text-sm">Thanks for reaching out. We'll get back to you within 24–48 hours.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <h2 className="text-xl font-bold text-white mb-2">Send Us a Message</h2>
+          {/* Right quote */}
+          <div className="lg:max-w-xs lg:text-right pb-2">
+            <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.55)", lineHeight: 1.75 }}>
+              &ldquo;The line is open. Whether you&rsquo;re a partner, creator,
+              or attendee—<strong style={{ color: "rgba(255,255,255,0.90)" }}>make your signal clear.</strong>&rdquo;
+            </p>
+          </div>
+        </motion.div>
 
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {[
-                        { id: 'fname', label: 'First Name', type: 'text',  placeholder: 'First' },
-                        { id: 'lname', label: 'Last Name',  type: 'text',  placeholder: 'Last'  },
-                      ].map(f => (
-                        <div key={f.id} className="space-y-1.5">
-                          <label htmlFor={f.id} className="text-xs font-medium text-gray-300">{f.label}</label>
-                          <input id={f.id} name={f.id} type={f.type} placeholder={f.placeholder} required
-                            className="glass-input w-full px-3 py-2.5 rounded-xl text-sm" />
-                        </div>
-                      ))}
-                    </div>
+        {/* Divider */}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.10)", marginBottom: "48px" }} />
 
-                    {[
-                      { id: 'email',   label: 'Email',   type: 'email', placeholder: 'you@university.edu' },
-                      { id: 'subject', label: 'Subject', type: 'text',  placeholder: 'What is this about?' },
-                    ].map(f => (
-                      <div key={f.id} className="space-y-1.5">
-                        <label htmlFor={f.id} className="text-xs font-medium text-gray-300">{f.label}</label>
-                        <input id={f.id} name={f.id} type={f.type} placeholder={f.placeholder} required
-                          className="glass-input w-full px-3 py-2.5 rounded-xl text-sm" />
-                      </div>
-                    ))}
+        {/* ══════════════════════════════════════
+            TWO-COLUMN LAYOUT
+            ══════════════════════════════════════ */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-5 items-start">
 
-                    <div className="space-y-1.5">
-                      <label htmlFor="message" className="text-xs font-medium text-gray-300">Message</label>
-                      <textarea id="message" name="message" rows={5} placeholder="Tell us why you're reaching out…" required
-                        className="glass-input w-full px-3 py-2.5 rounded-xl text-sm resize-none" />
-                    </div>
+          {/* ── LEFT COLUMN ─────────────────── */}
+          <div className="flex flex-col gap-5">
 
-                    <button type="submit" disabled={loading}
-                      className="w-full py-3 rounded-xl font-semibold text-white text-sm disabled:opacity-55 flex items-center justify-center gap-2 transition-all"
-                      style={{ background: 'linear-gradient(135deg, rgba(34,211,238,0.78) 0%, rgba(14,165,233,0.78) 100%)', border: '1px solid rgba(34,211,238,0.36)', boxShadow: '0 0 14px rgba(34,211,238,0.18)' }}>
-                      {loading ? 'Sending…' : <><Send size={14} /> Send Message</>}
-                    </button>
-                  </form>
-                )}
+            {/* Card 1 — Contact info */}
+            <motion.div
+              initial={{ opacity: 0, x: -28 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.65, delay: 0.15, ease: EASE }}
+            >
+              <Card1 />
+            </motion.div>
+
+            {/* Card 2 — Partner recruitment (lime) */}
+            <motion.div
+              initial={{ opacity: 0, x: -28 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.65, delay: 0.26, ease: EASE }}
+            >
+              <Card2 />
+            </motion.div>
+          </div>
+
+          {/* ── RIGHT: Form card ─────────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: 28 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65, delay: 0.18, ease: EASE }}
+            style={{
+              background: "#fff",
+              borderRadius: "24px",
+              padding: "40px 36px",
+              border: "1px solid #ebebeb",
+              boxShadow: "0 4px 32px rgba(0,0,0,0.10)",
+            }}
+          >
+            {submitted ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-5 text-center">
+                <CheckCircle size={52} style={{ color: "#84cc16" }} />
+                <h3 style={{ fontSize: "20px", fontWeight: 900, color: "#0e0e10" }}>Transmission Received!</h3>
+                <p style={{ fontSize: "13px", color: "#888", maxWidth: "280px", lineHeight: 1.65 }}>
+                  Thanks for reaching out. We'll get back to you within 24–48 hours.
+                </p>
               </div>
-            </GlassCard>
-          </ScrollReveal>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <h2
+                  className="font-black uppercase tracking-tight text-black"
+                  style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.7rem)", letterSpacing: "-0.02em", marginBottom: "28px" }}
+                >
+                  Send Transmission
+                </h2>
+
+                {/* Identity — Name */}
+                <Field label="Identity">
+                  <input
+                    name="name" type="text" placeholder="Name" required
+                    style={inputStyle}
+                    onFocus={e  => (e.currentTarget.style.borderColor = "#bef264")}
+                    onBlur={e   => (e.currentTarget.style.borderColor = "#ebebeb")}
+                  />
+                </Field>
+
+                {/* Email */}
+                <Field label="Signal">
+                  <input
+                    name="email" type="email" placeholder="your@email.com" required
+                    style={inputStyle}
+                    onFocus={e  => (e.currentTarget.style.borderColor = "#bef264")}
+                    onBlur={e   => (e.currentTarget.style.borderColor = "#ebebeb")}
+                  />
+                </Field>
+
+                {/* Topic — subject dropdown */}
+                <Field label="Topic">
+                  <select
+                    name="topic" required
+                    style={{ ...inputStyle, appearance: "none", WebkitAppearance: "none", cursor: "pointer" }}
+                    onFocus={e  => (e.currentTarget.style.borderColor = "#bef264")}
+                    onBlur={e   => (e.currentTarget.style.borderColor = "#ebebeb")}
+                  >
+                    <option value="General Inquiry">General Inquiry</option>
+                    <option value="Partnership">Partnership</option>
+                    <option value="Event Registration">Event Registration</option>
+                    <option value="Technical Support">Technical Support</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </Field>
+
+                {/* Data — message */}
+                <Field label="Data">
+                  <textarea
+                    name="message" rows={5} placeholder="Write your message here..." required
+                    style={{ ...inputStyle, resize: "none" }}
+                    onFocus={e  => (e.currentTarget.style.borderColor = "#bef264")}
+                    onBlur={e   => (e.currentTarget.style.borderColor = "#ebebeb")}
+                  />
+                </Field>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 rounded-full font-black uppercase text-white text-[12px] tracking-widest py-4 mt-2"
+                  style={{
+                    background: loading ? "#333" : "#0e0e10",
+                    border: "none",
+                    letterSpacing: "0.12em",
+                    cursor: loading ? "not-allowed" : "pointer",
+                    transition: "background 250ms ease",
+                    opacity: loading ? 0.7 : 1,
+                  }}
+                  onMouseEnter={e => { if (!loading) e.currentTarget.style.background = "#222" }}
+                  onMouseLeave={e => { if (!loading) e.currentTarget.style.background = "#0e0e10" }}
+                >
+                  {loading ? "Sending…" : (
+                    <>
+                      Initialize Send
+                      <Send size={14} strokeWidth={2.2} />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </motion.div>
 
         </div>
       </div>
     </main>
-  )
+  );
 }
