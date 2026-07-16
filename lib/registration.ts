@@ -62,7 +62,6 @@ export async function getSeatAvailability(
 
   const res = await fetch(`${scriptUrl}?action=seats`, {
     method:  "GET",
-    headers: { "Content-Type": "application/json" },
     // No-store so every page load gets fresh data
     cache: "no-store",
   });

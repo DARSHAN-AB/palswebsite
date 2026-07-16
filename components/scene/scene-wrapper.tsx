@@ -10,7 +10,7 @@ import { CursorGlow }         from './cursor-glow'
 export function SceneWrapper() {
   return (
     <>
-      <ParallaxBackground />
+      {/* <ParallaxBackground /> */}
       {/* <CursorGlow /> */}
     </>
   )

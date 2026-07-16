@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { getSeatAvailability, submitRegistration } from "@/lib/registration";
 import type { SeatAvailability, RegistrationPayload } from "@/lib/registration";
+import { useSeatAvailability } from "@/lib/useSeatAvailability";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const LIME = "#bef264";
@@ -34,23 +35,17 @@ function CountUnit({ value, label }: { value: string; label: string }) {
 }
 
 // ─── Seats tracker ───────────────────────────────────────────────────────
-// Fetches live counts from Google Sheets via Apps Script on mount.
-// Falls back gracefully if the request fails.
-function SeatsTracker({ total = 120, left = 110 }: { total?: number; left?: number }) {
-  const [seats, setSeats] = useState<SeatAvailability | null>(null);
-  const [loadErr, setLoadErr] = useState(false);
-
-  useEffect(() => {
-    getSeatAvailability("IPL")
-      .then(data => setSeats(data))
-      .catch(() => setLoadErr(true));
-  }, []);
-
-  // Use live data if available, otherwise fall back to props
-  const displayTotal = seats?.totalSeats     ?? total;
-  const displayLeft  = seats?.remainingSeats ?? left;
-  const filled       = displayTotal - displayLeft;
-  const pct          = displayTotal > 0 ? Math.round((filled / displayTotal) * 100) : 0;
+// Driven by the useSeatAvailability hook — always in sync with the button.
+function SeatsTracker({
+  loading, remainingSeats, totalSeats, status,
+}: {
+  loading:       boolean;
+  remainingSeats: number;
+  totalSeats:    number;
+  status:        "loading" | "available" | "full" | "error";
+}) {
+  const filled = totalSeats - remainingSeats;
+  const pct    = totalSeats > 0 ? Math.round((filled / totalSeats) * 100) : 0;
 
   return (
     <div style={{ marginTop: "14px" }}>
@@ -58,30 +53,24 @@ function SeatsTracker({ total = 120, left = 110 }: { total?: number; left?: numb
         <p style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.40)" }}>
           Seats Left
         </p>
-        {loadErr ? (
+        {status === "error" ? (
           <p style={{ fontSize: "9px", color: "rgba(255,255,255,0.25)" }}>Unavailable</p>
-        ) : seats === null ? (
+        ) : loading ? (
           <Loader2 size={10} className="animate-spin" style={{ color: "rgba(255,255,255,0.30)" }} />
         ) : (
           <p style={{ fontSize: "9px", fontWeight: 700, color: "rgba(255,255,255,0.50)" }}>
-            {displayLeft} / {displayTotal}
+            {remainingSeats} / {totalSeats}
           </p>
         )}
       </div>
-
-      {/* Progress bar */}
       <div style={{ height: "6px", borderRadius: "9999px", background: "rgba(255,255,255,0.10)", overflow: "hidden" }}>
-        <div style={{ height: "100%", width: `${pct}%`, borderRadius: "9999px", background: "#bef264", transition: "width 600ms ease" }} />
+        <div style={{ height: "100%", width: loading ? "0%" : `${pct}%`, borderRadius: "9999px", background: "#bef264", transition: "width 600ms ease" }} />
       </div>
-
       <p style={{ fontSize: "9px", color: "rgba(255,255,255,0.30)", marginTop: "5px" }}>
-        {loadErr
-          ? "Unable to fetch seat availability"
-          : seats === null
-          ? "Fetching availability…"
-          : displayLeft === 0
-          ? "No seats available"
-          : `${displayLeft} seats available`}
+        {status === "error"     ? "Unable to fetch seat availability"
+         : loading              ? "Fetching availability…"
+         : remainingSeats === 0 ? "No seats available"
+                                : `${remainingSeats} seats available`}
       </p>
     </div>
   );
@@ -368,6 +357,10 @@ export default function ImpromptuPromptLeaguePage() {
 
     const [isPast, setIsPast] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+    const [btnChecking, setBtnChecking] = useState(false);
+
+    // ── Live seat availability via reusable hook ──────────────────────
+    const seatInfo = useSeatAvailability("IPL", 120);
 
     useEffect(() => {
     const updateCountdown = () => {
@@ -604,21 +597,47 @@ export default function ImpromptuPromptLeaguePage() {
                 </div>
 
                 <button
-                  disabled={isPast}
-                  onClick={() => { if (!isPast) setModalOpen(true); }}
-                  className="w-full font-black uppercase rounded-xl py-3.5"
+                  disabled={isPast || seatInfo.loading || !seatInfo.canRegister || btnChecking}
+                  onClick={async () => {
+                    if (isPast || !seatInfo.canRegister) return;
+                    setBtnChecking(true);
+                    const stillOpen = await seatInfo.refreshAvailability();
+                    setBtnChecking(false);
+                    if (stillOpen) setModalOpen(true);
+                  }}
+                  className="w-full font-black uppercase rounded-xl py-3.5 inline-flex items-center justify-center gap-2"
                   style={{
                     fontSize:      "12px",
                     letterSpacing: "0.12em",
-                    background:    LIME,
+                    background:    (!seatInfo.canRegister && !seatInfo.loading)
+                      ? "rgba(190,242,100,0.35)"
+                      : LIME,
                     color:         "#000",
                     border:        "none",
-                    cursor:        isPast ? "default" : "pointer",
+                    cursor:        (isPast || !seatInfo.canRegister || seatInfo.loading || btnChecking)
+                      ? "default"
+                      : "pointer",
+                    transition:    "background 250ms ease",
                   }}
                 >
-                  {isPast ? "Event Completed" : "Click to Register"}
+                  {isPast ? (
+                    "Event Completed"
+                  ) : seatInfo.loading ? (
+                    <><Loader2 size={13} className="animate-spin" /> Loading…</>
+                  ) : btnChecking ? (
+                    <><Loader2 size={13} className="animate-spin" /> Reserving a Seat…</>
+                  ) : !seatInfo.canRegister ? (
+                    "Registrations Closed"
+                  ) : (
+                    "Click to Register"
+                  )}
                 </button>
-                <SeatsTracker total={120} left={82} />
+                <SeatsTracker
+                  loading={seatInfo.loading}
+                  remainingSeats={seatInfo.remainingSeats}
+                  totalSeats={seatInfo.totalSeats}
+                  status={seatInfo.status}
+                />
               </motion.div>
 
               {/* Card 2 — Rewards (lime, matches reference) */}
