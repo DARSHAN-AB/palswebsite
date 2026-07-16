@@ -10,7 +10,7 @@ export interface Event {
   location:    string
   mode:        EventMode
   image:       string
-  category:    'conference' | 'workshop' | 'networking' | 'webinar'
+  category:    'conference' | 'workshop' | 'networking' | 'webinar' | 'hackathon'
   attendees:   number
   featured:    boolean
   status:      EventStatus
@@ -22,41 +22,18 @@ export interface Event {
 export const events: Event[] = [
   {
     id:          '1',
-    title:       'Future of AI Innovation Summit',
-    description: 'Discover cutting-edge AI breakthroughs from industry leaders.',
-    date:        '2026-07-04',
-    time:        '9:00 AM – 5:00 PM',
-    location:    'BMSIT&M Auditorium',
-    mode:        'Virtual',
-    image:       'https://images.unsplash.com/photo-1540575467063-178f50002cbc?w=700&h=420&fit=crop',
-    category:    'conference',
-    attendees:   2500,
-    featured:    true,
-    status:      'UPCOMING',
-    slug:        'future-of-ai-innovation-summit',
-    photos: [
-      'https://images.unsplash.com/photo-1540575467063-178f50002cbc?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&h=600&fit=crop',
-    ],
-  },
-  {
-    id:          '2',
-    title:       'Vibe Coding Unplugged',
-    description: 'Build Smarter with MCP.',
-    date:        '2026-04-18',
-    time:        '10:00 AM – 3:00 PM',
-    location:    'Tech Hub Downtown',
-    mode:        'Virtual',
-    image:       'https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&h=420&fit=crop',
-    category:    'workshop',
-    attendees:   150,
+    title:       'Impromptu Prompt League',
+    description: '8-hour coding competition with real-world challenges. Prizes worth 6k. Individual participation.',
+    date:        '2026-08-20',
+    time:        '09:00 AM – 6:00 PM',
+    location:    'Seminar Hall 2nd Floor, Academic Block',
+    mode:        'offline',
+    image:       'ipl preview.jpg',
+    category:    'hackathon',
+    attendees:   120,
     featured:    true,
     status:      'LIVE',
-    slug:        'vibe-coding-unplugged',
+    slug:        'impromptu-prompt-league',
     photos: [
       'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop',
@@ -65,16 +42,16 @@ export const events: Event[] = [
     ],
   },
   {
-    id:          '3',
+    id:          '2',
     title:       'Think 2 Impact 2026',
-    description: 'Connect with founders, investors, and mentors.',
+    description: '8-hour coding competition with real-world challenges. Prizes worth 20k. Team event.',
     date:        '2026-03-14',
     time:        '9:00 AM – 6:00 PM',
-    location:    'Seminar Hall 1, Academic Block',
+    location:    'Seminar Hall 1st Floor, Academic Block',
     mode:        'Offline',
     image:       './think2impact.jpg',
-    category:    'Hackathon',
-    attendees:   300,
+    category:    'hackathon',
+    attendees:   150,
     featured:    true,
     status:      'PAST',
     slug:        'think-2-impact-2026',

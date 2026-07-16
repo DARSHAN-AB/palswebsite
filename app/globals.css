@@ -173,6 +173,15 @@
   border-color:  rgba(255,255,255,0.20);
 }
 
+/* ─── Dark select options (IPL registration modal) ──────────────────────── */
+.dark-select option {
+  background: #1a1a1e;
+  color:      #ffffff;
+}
+.dark-select option:disabled {
+  color: rgba(255,255,255,0.35);
+}
+
 /* ─── Wide page container — replaces max-w-7xl on every section ─────────── */
 /*  Desktop (1440px+): 92vw, capped at 1800px, 4vw side margins            */
 /*  Laptop  (1024–1440px): 94vw, 3vw side margins                          */

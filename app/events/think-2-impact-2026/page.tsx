@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import {useEffect, useState } from "react";
 import {
   ArrowLeft, CalendarDays, Clock3, MapPin,
   Share2, ArrowDown, Trophy, ArrowRight,
@@ -31,6 +31,70 @@ function CountUnit({ value, label }: { value: string; label: string }) {
 }
 
 export default function Think2ImpactPage() {
+  // Event End Date & Time
+  // Format: YYYY-MM-DDTHH:mm:ss
+  const eventDate = new Date("2026-05-21T18:00:00");
+
+  const [timeLeft, setTimeLeft] = useState({
+    days: "00",
+    hours: "00",
+    minutes: "00",
+    seconds: "00",
+  });
+
+  const [isPast, setIsPast] = useState(false);
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date();
+
+      const difference = eventDate.getTime() - now.getTime();
+
+      if (difference <= 0) {
+        setIsPast(true);
+
+        setTimeLeft({
+          days: "00",
+          hours: "00",
+          minutes: "00",
+          seconds: "00",
+        });
+
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) /
+        (1000 * 60 * 60)
+      );
+
+      const minutes = Math.floor(
+        (difference % (1000 * 60 * 60)) /
+        (1000 * 60)
+      );
+
+      const seconds = Math.floor(
+        (difference % (1000 * 60)) /
+        1000
+      );
+
+      setTimeLeft({
+        days: String(days).padStart(2, "0"),
+        hours: String(hours).padStart(2, "0"),
+        minutes: String(minutes).padStart(2, "0"),
+        seconds: String(seconds).padStart(2, "0"),
+      });
+    };
+
+    updateCountdown();
+
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval);
+
+  }, []);
   return (
     <main style={{ background: "#f5f0eb" }}>
 
@@ -76,7 +140,7 @@ export default function Think2ImpactPage() {
                 {[
                   { label: "Location", icon: <MapPin     size={24} className="text-lime-300" />, value: "BMSIT&M"     },
                   { label: "Date",     icon: <CalendarDays size={24} className="text-lime-300" />, value: "14 Mar 2026" },
-                  { label: "Duration", icon: <Clock3     size={24} className="text-lime-300" />, value: "9 Hours"     },
+                  { label: "Duration", icon: <Clock3     size={24} className="text-lime-300" />, value: "9 Hours (9AM to 6PM)"     },
                 ].map(m => (
                   <div key={m.label}>
                     <p className="mb-3 text-xs uppercase tracking-[0.3em] text-white/60">{m.label}</p>
@@ -229,10 +293,10 @@ export default function Think2ImpactPage() {
 
                 {/* Countdown numbers */}
                 <div className="grid grid-cols-4 gap-1 mb-5">
-                  <CountUnit value={isPast ? "00" : "16"} label="Days" />
-                  <CountUnit value={isPast ? "00" : "00"} label="Hrs"  />
-                  <CountUnit value={isPast ? "00" : "31"} label="Min"  />
-                  <CountUnit value={isPast ? "00" : "28"} label="Sec"  />
+                  <CountUnit value={timeLeft.days} label="Days" />
+                  <CountUnit value={timeLeft.hours} label="Hrs" />
+                  <CountUnit value={timeLeft.minutes} label="Min" />
+                  <CountUnit value={timeLeft.seconds} label="Sec" />
                 </div>
 
                 <button
