@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
@@ -92,20 +93,8 @@ export function Navbar() {
           onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
         >
           {/* Circular logo badge */}
-          <div
-            style={{
-              width:        '34px',
-              height:       '34px',
-              borderRadius: '50%',
-              background:   'linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%)',
-              boxShadow:    '0 0 12px rgba(34,211,238,0.38)',
-              display:      'flex',
-              alignItems:   'center',
-              justifyContent: 'center',
-              flexShrink:   0,
-            }}
-          >
-            <span style={{ color:'#fff', fontSize:'11px', fontWeight:900, letterSpacing:'-0.02em', lineHeight:1 }}>IH</span>
+          <div style={{ width: '34px', height: '34px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
+            <Image src="/roller2.png" alt="PALS Club" width={34} height={34} className="object-cover" />
           </div>
           {/* Wordmark */}
           <span

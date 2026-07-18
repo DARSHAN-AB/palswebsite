@@ -351,10 +351,11 @@ function RegistrationModal({ onClose }: { onClose: () => void }) {
               </div>
             </form>
           )}
-        </div>
+          </div>
       </motion.div>
     </motion.div>
   );
+
 }
 
 export default function ImpromptuPromptLeaguePage() {
@@ -475,19 +476,24 @@ export default function ImpromptuPromptLeaguePage() {
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }} className="my-10 h-px bg-white/20" />
 
+            
+
             <motion.div
               initial={{ opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}
               className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between"
             >
-              <div className="flex flex-wrap gap-14">
+              <div className="flex items-center gap-6 sm:gap-14 flex-nowrap">
                 {[
-                  { label: "Location", icon: <MapPin     size={24} className="text-lime-300" />, value: "BMSIT&M"     },
-                  { label: "Date",     icon: <CalendarDays size={24} className="text-lime-300" />, value: "21 May 2026" },
-                  { label: "Duration", icon: <Clock3     size={24} className="text-lime-300" />, value: "9 Hours (9AM to 6PM)"     },
+                  { label: "Location", icon: <MapPin     size={20} className="text-lime-300" />, value: "BMSIT&M"     },
+                  { label: "Date",     icon: <CalendarDays size={20} className="text-lime-300" />, value: "21 May 2026" },
+                  { label: "Duration", icon: <Clock3     size={20} className="text-lime-300" />, value: "9 Hours (9AM to 6PM)"     },
                 ].map(m => (
-                  <div key={m.label}>
-                    <p className="mb-3 text-xs uppercase tracking-[0.3em] text-white/60">{m.label}</p>
-                    <div className="flex items-center gap-3 text-2xl font-semibold text-white">{m.icon}{m.value}</div>
+                  <div key={m.label} className="flex items-center gap-3 min-w-0">
+                    <p className="mr-2 mb-0 text-[10px] uppercase tracking-[0.28em] text-white/60 hidden sm:block">{m.label}</p>
+                    <div className="flex items-center gap-2 text-sm sm:text-2xl font-semibold text-white min-w-0">
+                      {m.icon}
+                      <span className="truncate">{m.value}</span>
+                    </div>
                   </div>
                 ))}
               </div>

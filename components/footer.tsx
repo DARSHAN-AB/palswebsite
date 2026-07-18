@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Globe, AtSign, Code, MessageCircle } from "lucide-react";
@@ -171,13 +172,8 @@ export function Footer() {
             <motion.div variants={colItem} className="space-y-5">
               {/* Logo + name */}
               <div className="flex items-center gap-3">
-                <div style={{
-                  width: "42px", height: "42px", borderRadius: "50%",
-                  background: "linear-gradient(135deg,#22d3ee,#0ea5e9)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  flexShrink: 0,
-                }}>
-                  <span style={{ color:"#fff", fontSize:"13px", fontWeight:900, letterSpacing:"-0.02em" }}>PC</span>
+                <div style={{ width: "42px", height: "42px", borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
+                  <Image src="/roller2.png" alt="PALS Club" width={42} height={42} className="object-cover" />
                 </div>
                 <span style={{ color:"#fff", fontSize:"13px", fontWeight:800, letterSpacing:"-0.01em" }}>
                   PALS Club
