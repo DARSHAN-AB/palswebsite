@@ -95,7 +95,7 @@ export default function EventDetailPage({ params }: PageProps) {
       <section
         className="relative overflow-visible sm:overflow-hidden"
         style={{
-          minHeight: "clamp(440px, 56vw, 620px)",
+          minHeight: "clamp(520px, 62vw, 760px)",
           borderRadius: "0 0 28px 28px",
         }}
       >
@@ -153,7 +153,7 @@ export default function EventDetailPage({ params }: PageProps) {
           </div>
 
           {/* Bottom — main hero content */}
-          <div className="w-full px-10 lg:px-20 pb-10">
+          <div className="w-full px-10 lg:px-20 pb-14">
 
             {/* Status + category pills */}
             <motion.div

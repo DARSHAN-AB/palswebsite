@@ -436,7 +436,7 @@ export default function ImpromptuPromptLeaguePage() {
       {/* ════════════════════════════════════════
           HERO — unchanged from original
           ════════════════════════════════════════ */}
-      <section className="relative h-[80vh] min-h-[600px] w-full overflow-hidden">
+      <section className="relative h-[88vh] min-h-[720px] w-full overflow-hidden">
 
         <Image src="/ipl hero.jpg" alt="Impromptu Prompt League" fill priority className="object-cover" />
 
@@ -445,7 +445,7 @@ export default function ImpromptuPromptLeaguePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
 
         <div className="relative z-20 flex h-full items-start lg:items-end">
-          <div className="mx-auto w-full max-w-[1500px] px-10 pt-24 pb-28 lg:pt-0 lg:px-24 xl:px-32">
+          <div className="mx-auto w-full max-w-[1500px] px-10 pt-24 pb-40 lg:pt-0 lg:px-24 xl:px-32">
 
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <Link href="/events" className="mb-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white/80 transition hover:text-lime-300">
