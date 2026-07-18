@@ -93,7 +93,7 @@ export default function EventDetailPage({ params }: PageProps) {
           HERO — full-bleed image with overlays
           ══════════════════════════════════════════════ */}
       <section
-        className="relative overflow-hidden"
+        className="relative overflow-visible sm:overflow-hidden"
         style={{
           minHeight: "clamp(440px, 56vw, 620px)",
           borderRadius: "0 0 28px 28px",

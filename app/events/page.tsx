@@ -60,7 +60,7 @@ export default function EventsPage() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.72, ease: EASE }}
-          className="relative overflow-hidden flex flex-col"
+          className="relative overflow-visible sm:overflow-hidden flex flex-col"
           style={{
             background:   "#000",
             borderRadius: "28px",
@@ -348,7 +348,7 @@ function EventCard({ event, index }: { event: typeof events[0]; index: number })
 
           {/* Description */}
           <p
-            className="line-clamp-1 mb-4"
+            className="line-clamp-2 mb-4"
             style={{ fontSize: "11px", color: "#888", lineHeight: 1.5 }}
           >
             {event.description}

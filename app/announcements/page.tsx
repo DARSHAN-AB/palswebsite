@@ -247,7 +247,7 @@ export default function AnnouncementsPage() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.72, ease: EASE }}
-          className="relative overflow-hidden flex flex-col"
+          className="relative overflow-visible sm:overflow-hidden flex flex-col"
           style={{
             background: "#000",
             borderRadius: "28px",

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   ArrowLeft, CalendarDays, Clock3, MapPin,
   Share2, ArrowDown, Trophy, ArrowRight,
@@ -377,6 +377,8 @@ export default function ImpromptuPromptLeaguePage() {
     // ── Live seat availability via reusable hook ──────────────────────
     const seatInfo = useSeatAvailability("IPL", 120);
 
+    const detailRef = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
     const updateCountdown = () => {
         const now = new Date();
@@ -492,14 +494,14 @@ export default function ImpromptuPromptLeaguePage() {
                     <p className="mr-2 mb-0 text-[10px] uppercase tracking-[0.28em] text-white/60 hidden sm:block">{m.label}</p>
                     <div className="flex items-center gap-2 text-sm sm:text-2xl font-semibold text-white min-w-0">
                       {m.icon}
-                      <span className="truncate">{m.value}</span>
+                      <span className="whitespace-normal break-words sm:truncate">{m.value}</span>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div className="flex items-center gap-4">
-                <button className="inline-flex items-center gap-3 rounded-full bg-white px-9 py-5 text-lg font-bold text-black transition hover:bg-lime-300">
+                <button onClick={() => detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="inline-flex items-center gap-3 rounded-full bg-white px-9 py-5 text-lg font-bold text-black transition hover:bg-lime-300">
                   Explore Event <ArrowDown size={20} />
                 </button>
                 <button className="flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition hover:bg-white hover:text-black">
@@ -515,7 +517,7 @@ export default function ImpromptuPromptLeaguePage() {
       {/* ════════════════════════════════════════
           DETAIL SECTION
           ════════════════════════════════════════ */}
-      <section className="w-full px-10 lg:px-24 xl:px-32" style={{ paddingTop: "100px", paddingBottom: "100px" }}>
+      <section ref={detailRef} className="w-full px-10 lg:px-24 xl:px-32" style={{ paddingTop: "100px", paddingBottom: "100px" }}>
         <div className="max-w-[900px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-10 xl:gap-14 items-start">
 
@@ -537,7 +539,7 @@ export default function ImpromptuPromptLeaguePage() {
               {/* Story block */}
               <div>
                 <p className="font-black uppercase mb-2" style={{ fontSize: "10px", letterSpacing: "0.20em", color: "#aaa" }}>
-                  What Happened
+                  What is it ?
                 </p>
                 <div className="space-y-5" style={{ maxWidth: "680px" }}>
                   {[
