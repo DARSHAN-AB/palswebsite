@@ -123,7 +123,7 @@ export default function Think2ImpactPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
 
         <div className="relative z-20 flex h-full items-start lg:items-end">
-          <div className="mx-auto w-full max-w-[1500px] px-10 pt-24 pb-20 lg:pt-0 lg:px-24 xl:px-32">
+          <div className="mx-auto w-full max-w-[1500px] px-10 pt-24 pb-28 lg:pt-0 lg:px-24 xl:px-32">
 
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <Link href="/events" className="mb-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white/80 transition hover:text-lime-300">
@@ -162,7 +162,7 @@ export default function Think2ImpactPage() {
               initial={{ opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}
               className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between"
             >
-              <div className="flex items-center gap-6 sm:gap-14 flex-nowrap">
+              <div className="flex items-center gap-6 sm:gap-14 flex-wrap items-center">
                 {[
                   { label: "Location", icon: <MapPin     size={20} className="text-lime-300" />, value: "BMSIT&M"     },
                   { label: "Date",     icon: <CalendarDays size={20} className="text-lime-300" />, value: "14 Mar 2026" },
@@ -171,7 +171,7 @@ export default function Think2ImpactPage() {
                   <div key={m.label} className="flex items-center gap-3 min-w-0">
                     <p className="mr-2 mb-0 text-[10px] uppercase tracking-[0.28em] text-white/60 hidden sm:block">{m.label}</p>
                     <div className="flex items-center gap-2 text-sm sm:text-2xl font-semibold text-white min-w-0">
-                      {m.icon}
+                      <span className="flex-shrink-0">{m.icon}</span>
                       <span className="whitespace-normal break-words sm:truncate">{m.value}</span>
                     </div>
                   </div>
