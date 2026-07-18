@@ -64,12 +64,12 @@ function Card1() {
         Bangalore<br />Karnataka, India
       </h2>
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "18px" }}>
-        <a href="mailto:club@bmsit.in" className="inline-flex items-center gap-2"
+        <a href="mailto:24ug1byai417@bmsit.in" className="inline-flex items-center gap-2"
           style={{ fontSize: "13px", color: "rgba(255,255,255,0.60)", transition: "color 200ms ease" }}
           onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
           onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.60)")}>
           <Mail size={14} style={{ flexShrink: 0 }} />
-          club@bmsit.in
+          24ug1byai417@bmsit.in
         </a>
       </div>
     </div>

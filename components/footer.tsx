@@ -177,10 +177,10 @@ export function Footer() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   flexShrink: 0,
                 }}>
-                  <span style={{ color:"#fff", fontSize:"13px", fontWeight:900, letterSpacing:"-0.02em" }}>IH</span>
+                  <span style={{ color:"#fff", fontSize:"13px", fontWeight:900, letterSpacing:"-0.02em" }}>PC</span>
                 </div>
                 <span style={{ color:"#fff", fontSize:"13px", fontWeight:800, letterSpacing:"-0.01em" }}>
-                  InnovatorsHub
+                  PALS Club
                 </span>
               </div>
 

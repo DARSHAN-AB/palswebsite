@@ -1,7 +1,7 @@
 import { ScrollReveal } from '@/components/ui/scroll-reveal'
 import { GlassCard }    from '@/components/ui/glass-card'
 
-export const metadata = { title: 'Our Team — InnovatorsHub' }
+export const metadata = { title: 'Our Team — PALS Club' }
 
 const TEAM = [
   { name: 'Priya Sharma',  role: 'President',           year: 'Final Year · CS',       img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face' },
@@ -22,7 +22,7 @@ export default function TeamPage() {
         <ScrollReveal className="max-w-2xl space-y-4">
           <h1 className="text-5xl sm:text-6xl font-bold text-white">Our Team</h1>
           <p className="text-lg text-gray-300">
-            Meet the passionate students driving InnovatorsHub forward. Every semester we welcome new leaders — maybe you'll be next.
+            Meet the passionate students driving PALS Club forward. Every semester we welcome new leaders — maybe you'll be next.
           </p>
         </ScrollReveal>
 
@@ -57,7 +57,7 @@ export default function TeamPage() {
                 <h3 className="text-xl font-bold text-white">Dr. Rebecca Stone</h3>
                 <p className="text-gray-300 text-sm mt-1">Associate Professor, Dept. of Computer Science</p>
                 <p className="text-gray-400 text-sm mt-2 leading-relaxed">
-                  Dr. Stone has been guiding InnovatorsHub since its founding and brings industry experience from her time at Google and MIT Media Lab.
+                  Dr. Stone has been guiding PALS Club since its founding and brings industry experience from her time at Google and MIT Media Lab.
                 </p>
               </div>
             </div>

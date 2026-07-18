@@ -112,7 +112,7 @@ export function Navbar() {
             className="font-bold text-white text-[14px] sm:text-[15px]"
             style={{ letterSpacing: '-0.01em' }}
           >
-            InnovatorsHub
+            PALS Club
           </span>
         </Link>
 

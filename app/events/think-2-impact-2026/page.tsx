@@ -8,10 +8,21 @@ import {
   ArrowLeft, CalendarDays, Clock3, MapPin,
   Share2, ArrowDown, Trophy, ArrowRight,
 } from "lucide-react";
+import { getEventById } from "@/data/events";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const LIME = "#bef264";
-const isPast = true; // this is a past event — countdown always zeros
+type EventStatus = "LIVE" | "PAST" | "UPCOMING";
+const STATUS_CONFIG: Record<EventStatus, { label: string; dot: boolean; bg: string; color: string }> = {
+  LIVE:     { label: "Live",     dot: true,  bg: "#F5C518", color: "#000" },
+  UPCOMING: { label: "Upcoming", dot: false, bg: "#1a1a1e", color: "#fff" },
+  PAST:     { label: "Past",     dot: false, bg: "#e5e7eb", color: "#333" },
+};
+
+const event = getEventById("think-2-impact-2026");
+const eventStatus = (event?.status ?? "PAST") as EventStatus;
+const eventStatusMeta = STATUS_CONFIG[eventStatus];
+
 
 /* ── Countdown unit ─────────────────────────────────────────────────────── */
 function CountUnit({ value, label }: { value: string; label: string }) {
@@ -42,7 +53,7 @@ export default function Think2ImpactPage() {
     seconds: "00",
   });
 
-  const [isPast, setIsPast] = useState(false);
+  const [isPast, setIsPast] = useState(eventStatus === "PAST");
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -109,8 +120,8 @@ export default function Think2ImpactPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
 
-        <div className="relative z-20 flex h-full items-end">
-          <div className="mx-auto w-full max-w-[1500px] px-10 pb-20 lg:px-24 xl:px-32">
+        <div className="relative z-20 flex h-full items-start lg:items-end">
+          <div className="mx-auto w-full max-w-[1500px] px-10 pt-24 pb-20 lg:pt-0 lg:px-24 xl:px-32">
 
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <Link href="/events" className="mb-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white/80 transition hover:text-lime-300">
@@ -119,7 +130,18 @@ export default function Think2ImpactPage() {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="mb-8 flex flex-wrap gap-3">
-              <span className="rounded-full bg-white px-6 py-2 text-sm font-bold uppercase text-black">Past</span>
+              <span
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-black uppercase tracking-[0.08em]"
+                style={{
+                  background: eventStatusMeta.bg,
+                  color: eventStatusMeta.color,
+                }}
+              >
+                {eventStatusMeta.dot && (
+                  <span className="block w-2 h-2 rounded-full bg-red-600 animate-pulse flex-shrink-0" />
+                )}
+                {eventStatusMeta.label}
+              </span>
               <span className="rounded-full border border-white/30 bg-white/10 px-6 py-2 text-sm font-semibold uppercase text-white backdrop-blur-md">Hackathon</span>
             </motion.div>
 

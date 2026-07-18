@@ -111,7 +111,7 @@ export function RegisterButton({ eventTitle }: RegisterButtonProps) {
                   <div className="flex items-start gap-2 pt-0.5">
                     <input type="checkbox" id="consent" required className="mt-1 w-3.5 h-3.5 cursor-pointer accent-cyan-400" />
                     <label htmlFor="consent" className="text-xs text-gray-400">
-                      I agree to receive event updates from InnovatorsHub. No spam, ever.
+                      I agree to receive event updates from PALS Club. No spam, ever.
                     </label>
                   </div>
 

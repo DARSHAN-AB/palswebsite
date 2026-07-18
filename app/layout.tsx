@@ -4,7 +4,7 @@ import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 
 export const metadata: Metadata = {
-  title: 'InnovatorsHub — University Innovation Club',
+  title: 'PALS Club — University Innovation Club',
   description: 'The premier university innovation club for students passionate about technology, entrepreneurship, and the future.',
   icons: { icon: '/icon.svg' },
 }

@@ -3,7 +3,7 @@ import { GlassCard }    from '@/components/ui/glass-card'
 import { ArrowRight }   from 'lucide-react'
 import Link             from 'next/link'
 
-export const metadata = { title: 'Articles — InnovatorsHub' }
+export const metadata = { title: 'Articles — PALS Club' }
 
 const ARTICLES = [
   { slug: '#', title: 'How We Built a Real-Time Collaboration Tool in 48 Hours',    excerpt: 'A behind-the-scenes look at our winning hackathon project — from idea to deployment in two days.',                                           date: 'July 8, 2025',  author: 'Jordan Lee',    tag: 'Build Log', img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=360&fit=crop' },
@@ -26,7 +26,7 @@ export default function ArticlesPage() {
 
         <ScrollReveal className="max-w-2xl space-y-4">
           <h1 className="text-5xl sm:text-6xl font-bold text-white">Articles</h1>
-          <p className="text-lg text-gray-300">Tutorials, build logs, and opinions written by InnovatorsHub members.</p>
+          <p className="text-lg text-gray-300">Tutorials, build logs, and opinions written by PALS Club members.</p>
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-6">

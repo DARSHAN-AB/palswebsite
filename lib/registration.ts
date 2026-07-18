@@ -1,20 +1,15 @@
 /**
  * registration.ts
- * Reusable Google Apps Script integration layer.
- * To add a new event, just create a new config and pass it to the functions.
- *
- * SETUP:
- *   1. Deploy your Apps Script Web App (see DEPLOYMENT.md).
- *   2. Add the URL to .env.local:
- *        NEXT_PUBLIC_IPL_SCRIPT_URL=https://script.google.com/macros/s/.../exec
- *   3. Call getSeatAvailability() and submitRegistration() from your page.
+ * Google Apps Script integration
  */
 
-// ─── Types ────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────────────────────
 
 export interface SeatAvailability {
-  totalSeats:     number;
-  filledSeats:    number;
+  totalSeats: number;
+  filledSeats: number;
   remainingSeats: number;
 }
 
@@ -22,33 +17,34 @@ export interface RegistrationPayload {
   teamName: string;
   fullName: string;
   semester: string;
-  usn:      string;
-  branch:   string;
-  email:    string;
-  phone:    string;
+  usn: string;
+  branch: string;
+  email: string;
+  phone: string;
 }
 
 export interface RegistrationResult {
-  success:  boolean;
-  message:  string;
-  id?:      string;   // e.g. "IPL-007"
+  success: boolean;
+  message: string;
+  id?: string;
 }
 
-// ─── Event config ─────────────────────────────────────────────────────────
-// Add a new entry here for each event. The scriptUrl comes from the Apps
-// Script Web App deployment URL for that event's sheet.
+// ─────────────────────────────────────────────────────────────
+// Event Config
+// ─────────────────────────────────────────────────────────────
 
 export const EVENT_CONFIGS = {
   IPL: {
-    scriptUrl:  process.env.NEXT_PUBLIC_IPL_SCRIPT_URL ?? "",
+    scriptUrl: process.env.NEXT_PUBLIC_IPL_SCRIPT_URL ?? "",
     totalSeats: 120,
   },
-  // HACKATHON: { scriptUrl: process.env.NEXT_PUBLIC_HACKATHON_SCRIPT_URL ?? "", totalSeats: 80 },
 } as const;
 
 export type EventKey = keyof typeof EVENT_CONFIGS;
 
-// ─── Fetch seat availability ──────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// Get Seats
+// ─────────────────────────────────────────────────────────────
 
 export async function getSeatAvailability(
   event: EventKey
@@ -56,21 +52,28 @@ export async function getSeatAvailability(
   const { scriptUrl, totalSeats } = EVENT_CONFIGS[event];
 
   if (!scriptUrl) {
-    // Fallback when env var is not set (dev/preview)
-    return { totalSeats, filledSeats: 0, remainingSeats: totalSeats };
+    return {
+      totalSeats,
+      filledSeats: 0,
+      remainingSeats: totalSeats,
+    };
   }
 
-  const res = await fetch(`${scriptUrl}?action=seats`, {
-    method:  "GET",
-    // No-store so every page load gets fresh data
+  const response = await fetch(`${scriptUrl}?action=seats`, {
+    method: "GET",
     cache: "no-store",
   });
 
-  if (!res.ok) throw new Error(`Seats fetch failed: ${res.status}`);
-  return res.json() as Promise<SeatAvailability>;
+  if (!response.ok) {
+    throw new Error(`Seat fetch failed (${response.status})`);
+  }
+
+  return response.json();
 }
 
-// ─── Submit registration ──────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// Submit Registration
+// ─────────────────────────────────────────────────────────────
 
 export async function submitRegistration(
   event: EventKey,
@@ -79,17 +82,48 @@ export async function submitRegistration(
   const { scriptUrl } = EVENT_CONFIGS[event];
 
   if (!scriptUrl) {
-    // Fallback — log to console during development
-    console.warn("Apps Script URL not configured. Logging payload:", payload);
-    return { success: true, message: "Dev mode: logged to console.", id: "DEV-001" };
+    console.warn("Apps Script URL missing.", payload);
+
+    return {
+      success: true,
+      message: "Development mode",
+      id: "DEV-001",
+    };
   }
 
-  const res = await fetch(scriptUrl, {
-    method:  "POST",
-    headers: { "Content-Type": "application/json" },
-    body:    JSON.stringify({ action: "register", ...payload }),
+  // Build form data
+  const body = new URLSearchParams();
+
+  body.append("action", "register");
+  body.append("teamName", payload.teamName);
+  body.append("fullName", payload.fullName);
+  body.append("semester", payload.semester);
+  body.append("usn", payload.usn);
+  body.append("branch", payload.branch);
+  body.append("email", payload.email);
+  body.append("phone", payload.phone);
+
+  const response = await fetch(scriptUrl, {
+    method: "POST",
+    body,
+    cache: "no-store",
+    headers: {
+      Accept: "application/json",
+    },
   });
 
-  if (!res.ok) throw new Error(`Registration submit failed: ${res.status}`);
-  return res.json() as Promise<RegistrationResult>;
+  const text = await response.text();
+  let data: RegistrationResult;
+
+  try {
+    data = JSON.parse(text) as RegistrationResult;
+  } catch {
+    throw new Error(`Registration failed (${response.status}): ${text}`);
+  }
+
+  if (!response.ok) {
+    throw new Error(data.message || `Registration failed (${response.status})`);
+  }
+
+  return data;
 }
