@@ -80,7 +80,10 @@ function NewsletterForm() {
   return done ? (
     <p style={{ fontSize: "13px", color: "#bef264" }}>You're in! We'll keep you posted. 🎉</p>
   ) : (
-    <form onSubmit={handleSubmit} className="flex gap-2 mt-4">
+    <form
+      onSubmit={handleSubmit}
+      className="mt-4 flex flex-col gap-3 sm:flex-row"
+    >
       <input
         type="email"
         required
@@ -88,7 +91,8 @@ function NewsletterForm() {
         value={email}
         onChange={e => setEmail(e.target.value)}
         style={{
-          flex: 1,
+          width: "100%",
+          minWidth: 0,
           background: "rgba(255,255,255,0.08)",
           border: "1px solid rgba(255,255,255,0.14)",
           borderRadius: "9999px",
@@ -103,9 +107,11 @@ function NewsletterForm() {
       />
       <button
         type="submit"
+        className="w-full sm:w-auto"
         style={{
           borderRadius: "9999px",
-          padding: "9px 18px",
+          padding: "11px 18px",
+          width: "100%",
           fontSize: "13px",
           fontWeight: 700,
           background: hovBtn ? "#a855f7" : "#7c3aed",
@@ -114,7 +120,7 @@ function NewsletterForm() {
           cursor: "pointer",
           transition: "background 250ms ease, transform 250ms ease",
           transform: hovBtn ? "scale(1.04)" : "scale(1)",
-          whiteSpace: "nowrap",
+          // whiteSpace: "nowrap",
         }}
         onMouseEnter={() => setHovBtn(true)}
         onMouseLeave={() => setHovBtn(false)}
@@ -141,13 +147,20 @@ export function Footer() {
           style={{
             background:   "#000",
             borderRadius: "32px 32px 0 0",   /* rounded top, flat bottom */
-            padding: "70px 160px 45px",
+            padding: "70px clamp(24px,5vw,160px) 45px",
           }}
         >
 
           {/* ── Four-column grid ──────────────────────────────── */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr_1.4fr] gap-10 mb-12"
+            className="
+            grid
+            grid-cols-1
+            gap-8
+            md:grid-cols-[1.4fr_1fr_1fr_1.4fr]
+            md:gap-10
+            mb-12
+            "
             variants={colVariants}
             initial="hidden"
             whileInView="visible"
@@ -245,11 +258,20 @@ export function Footer() {
           <div style={{ borderTop:"1px solid rgba(255,255,255,0.10)", marginBottom:"28px" }} />
 
           {/* ── Bottom row ────────────────────────────────────── */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="
+          flex
+          flex-col
+          items-center
+          gap-4
+          text-center
+          sm:flex-row
+          sm:justify-between
+          sm:text-left
+          ">
             <p style={{ fontSize:"10px", color:"rgba(255,255,255,0.35)" }}>
               © {new Date().getFullYear()} PALS Club BMSIT&M. All Rights Reserved.
             </p>
-            <div className="flex gap-5">
+            <div className="flex flex-wrap justify-center gap-4">
               {[["Terms","#"],["Privacy","#"],["Contact","/contact"]].map(([label,href])=>(
                 <Link key={label} href={href}
                   style={{ fontSize:"10px", color:"rgba(255,255,255,0.35)",

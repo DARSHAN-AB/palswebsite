@@ -45,7 +45,7 @@ export default function CommunityCTA() {
 
   return (
     <section className="py-16 bg-transparent">
-      <div className="w-full px-20 lg:px-36 xl:px-44">
+      <div className="w-full px-6 md:px-12 lg:px-24 xl:px-36">
 
         {/* ── Black container ─────────────────────────────────── */}
         <div

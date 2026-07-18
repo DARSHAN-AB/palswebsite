@@ -70,42 +70,7 @@
   }
 }
 
-/* ─── Scene animation keyframes ─────────────────────────────────────────── */
-
-/* Star twinkle */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50%       { opacity: 1;   }
-}
-
-/* Planet A — vertical float */
-@keyframes floatY {
-  0%, 100% { transform: translate3d(0, 0px, 0);   }
-  50%       { transform: translate3d(0, -22px, 0); }
-}
-
-/* Planet B — gentle rotation + slight vertical drift */
-@keyframes floatRotate {
-  0%, 100% { transform: translate3d(0, 0px, 0)   rotate(0deg);  }
-  33%       { transform: translate3d(4px, -10px, 0) rotate(3deg);  }
-  66%       { transform: translate3d(-4px, 8px, 0) rotate(-2deg); }
-}
-
-/* Planet C — diagonal drift */
-@keyframes floatDiag {
-  0%, 100% { transform: translate3d(0px,  0px, 0);   }
-  25%       { transform: translate3d(14px, -16px, 0); }
-  50%       { transform: translate3d(8px,  -24px, 0); }
-  75%       { transform: translate3d(-6px, -10px, 0); }
-}
-
-/* Shooting star — diagonal streak that fades out */
-@keyframes shootingStar {
-  0%   { opacity: 1; transform: translate(0px,   0px)   rotate(-35deg); }
-  100% { opacity: 0; transform: translate(280px, 180px) rotate(-35deg); }
-}
-
-/* Hero image float */
+/* ─── Hero image float */
 @keyframes heroFloat {
   0%, 100% { transform: translateY(0px)  rotate(0deg);   }
   50%       { transform: translateY(-12px) rotate(0.8deg); }

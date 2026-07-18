@@ -238,7 +238,7 @@ export default function AnnouncementsPage() {
 
   return (
     <main className="min-h-screen" style={{ background: "#f5f0eb" }}>
-      <div className="w-full px-16 lg:px-24 pt-32 pb-16">
+      <div className="w-full px-6 sm:px-10 lg:px-24 pt-28 sm:pt-32 pb-16">
 
         {/* ══════════════════════════════════════
             HERO — mirrors Events page
@@ -334,17 +334,16 @@ export default function AnnouncementsPage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.18, ease: EASE }}
-          className="flex items-center gap-4 mb-10"
+          className="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-4 mb-10"
           style={{
             background: "#fff",
-            borderRadius: "9999px",
-            padding: "8px 8px 8px 24px",
+            borderRadius: "24px",
+            padding: "12px 16px",
             boxShadow: "0 2px 18px rgba(0,0,0,0.07)",
             border: "1px solid #ececec",
-            minHeight: "64px",
           }}
         >
-          <div className="flex items-center gap-3 flex-1" style={{
+          <div className="flex items-center gap-3 w-full lg:flex-1" style={{
             background: "#f5f5f7", borderRadius: "9999px", padding: "10px 20px", minHeight: "46px",
           }}>
             <Search size={18} style={{ color: "#aaa", flexShrink: 0 }} />
@@ -357,7 +356,7 @@ export default function AnnouncementsPage() {
               style={{ fontSize: "15px", fontWeight: 500, color: "#111", border: "none", caretColor: "#111" }}
             />
           </div>
-          <div className="flex items-center gap-1.5 flex-shrink-0 pr-1">
+          <div className="flex items-center gap-1.5 flex-wrap justify-start lg:justify-end">
             {FILTERS.map(f => {
               const active = filter === f.key;
               return (

@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import { SceneWrapper } from '@/components/scene/scene-wrapper'
-import { Navbar }       from '@/components/navbar'
-import { Footer }       from '@/components/footer'
+import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
 
 export const metadata: Metadata = {
   title: 'InnovatorsHub — University Innovation Club',
@@ -24,9 +23,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className="antialiased bg-transparent text-foreground">
-        {/* Fixed scene layers — shared across every page */}
-        <SceneWrapper />
-
         {/* Global navbar */}
         <Navbar />
 

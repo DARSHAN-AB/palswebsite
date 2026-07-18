@@ -30,13 +30,7 @@ export default function PartnersRoller() {
 
         {/* Marquee */}
 
-        <div className="relative overflow-hidden">
-
-  {/* Left Fade */}
-  <div className="absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-white to-transparent" />
-
-  {/* Right Fade */}
-  <div className="absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-white to-transparent" />
+        <div className="overflow-hidden">
 
   <div className="marquee">
 

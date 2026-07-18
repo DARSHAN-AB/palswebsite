@@ -16,16 +16,16 @@ export default function ShowcaseSection() {
       <div className="w-full px-14 lg:px-28">
 
         {/* ── Three-column grid ── */}
-        <div className="grid gap-4 lg:grid-cols-[1.6fr_0.85fr_1.1fr]">
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-[1.6fr_0.85fr_1.1fr]">
 
           {/* ══════════════════════════════════════════════════
               LEFT CARD — Purple, fully static, hover shadow only
               ══════════════════════════════════════════════════ */}
-          <motion.div {...entryLeft} className="group">
+          <motion.div {...entryLeft} className="group col-span-2 lg:col-span-1">
             <Link href="/gallery">
               <div
                 className="
-                  relative h-[428px] overflow-hidden rounded-[28px] p-8
+                  relative h-[300px] sm:h-[428px] overflow-hidden rounded-[28px] p-6 sm:p-8
                   text-white
                   shadow-sm hover:shadow-xl
                   transition-shadow duration-400
@@ -98,7 +98,7 @@ export default function ShowcaseSection() {
               ══════════════════════════════════════════════════ */}
           <motion.div {...entryUp} className="group">
             <Link href="/events">
-              <div className="relative h-[428px] overflow-hidden rounded-[28px] shadow-sm">
+              <div className="relative h-[220px] sm:h-[428px] overflow-hidden rounded-[28px] shadow-sm">
 
                 {/* Image zoom only — card never moves */}
                 <img
@@ -133,8 +133,8 @@ export default function ShowcaseSection() {
             <Link href="/events">
               <div
                 className="
-                  relative h-[428px] overflow-hidden rounded-[28px]
-                  border border-neutral-200 p-7
+                  relative h-[220px] sm:h-[428px] overflow-hidden rounded-[28px]
+                  border border-neutral-200 p-5 sm:p-7
                   transition-colors duration-400
                   hover:bg-lime-300
                 "

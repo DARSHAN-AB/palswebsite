@@ -7,8 +7,8 @@ import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
-    <section className="pt-24 pb-12 lg:pt-28">
-      <div className="w-full px-6 lg:px-10 xl:px-10 2xl:px-25">
+    <section className="pt-28 pb-12 sm:pt-24 lg:pt-28">
+      <div className="w-full px-6 lg:px-10 xl:px-10 2xl:px-24">
 
         <div className="grid gap-5 lg:grid-cols-[2.05fr_1fr]">
 
@@ -20,11 +20,27 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 35 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="group relative rounded-[36px]"
+            className="
+              group
+              relative
+              rounded-[36px]
+
+              lg:h-[650px]
+            "
           >
             {/* IMAGE */}
 
-            <div className="relative h-[650px] overflow-hidden rounded-[36px]">
+            <div
+            className="
+            relative
+
+            h-[520px]
+            sm:h-[620px]
+            lg:h-full
+
+            overflow-hidden
+            rounded-[36px]
+            ">
 
               <Image
                 src="/hero.jpg"
@@ -50,7 +66,19 @@ export default function HeroSection() {
 
             {/* CONTENT */}
 
-            <div className="absolute inset-0 flex flex-col justify-between p-8 lg:p-10">
+            <div
+              className="
+              absolute
+              inset-0
+              flex
+              flex-col
+              justify-between
+
+              p-6
+              sm:p-8
+              lg:p-10
+              "
+              >
 
               {/* TOP BADGE */}
 
@@ -70,7 +98,7 @@ export default function HeroSection() {
                     text-black
                   "
                 >
-                  / $root login:PALS
+                  // $root login:PALS
                 </div>
 
               </div>
@@ -81,21 +109,29 @@ export default function HeroSection() {
 
                 {/* Title + Button */}
 
-                <div className="flex items-end justify-between gap-8">
-
+                <div
+                  className="
+                    flex
+                    flex-col
+                    items-start
+                    gap-6
+                    md:flex-row
+                    md:items-end
+                    md:justify-between
+                  "
+                >
                     <h1
                     className="
-                        text-5xl
-                        text-[42px]
-                        text-[25px]
-                        lg:text-[35px]
-                        xl:text-[38px]
-                        leading-[0.9]
-                        tracking-[-0.04em]
-                        font-black
-                        tracking-[-0.04em]
-                        text-white
-                    "
+                      font-black
+                      leading-[0.9]
+                      tracking-[-0.04em]
+                      text-white
+                      text-[2.4rem]
+                      sm:text-[3rem]
+                      md:text-[3.2rem]
+                      lg:text-[3.5rem]
+                      xl:text-[3.8rem]
+                      "
                     >
                     WE BUILD
                     <br />
@@ -116,29 +152,51 @@ export default function HeroSection() {
 
                     {/* CTA */}
 
-                    <div className="mt-6">
+                    <div
+                      className="
+                        mt-2
+                        w-full
+                        md:mt-6
+                        md:w-auto
+                      "
+                    >
                     <Link
                         href="/events"
                         className="
                         group
                         inline-flex
                         items-center
+                        justify-center
                         gap-2
+
+                        w-[210px]
+                        sm:w-[230px]
+                        md:w-auto
+
                         rounded-full
-                        border-[5px]
+
+                        border-[4px]
                         border-[#2f2f2f]
+
                         bg-white
-                        px-7
-                        py-3.5
-                        text-[15px]
-                        font-semibold
+
+                        px-6
+                        py-4
+
+                        text-[14px]
+                        font-bold
+                        uppercase
+
                         text-black
-                        shadow-[0_12px_30px_rgba(0,0,0,0.35)]
+
+                        shadow-[0_8px_24px_rgba(0,0,0,0.35)]
+
                         transition-all
                         duration-300
-                        hover:-translate-y-2
+
                         hover:border-lime-300
                         hover:bg-lime-300
+                        hover:-translate-y-1
                         "
                     >
                         <Search size={17} />
@@ -155,9 +213,11 @@ export default function HeroSection() {
                     className="
                     mt-7
                     max-w-md
-                    text-[16px]
+                    text-[15px]
+                    sm:text-[16px]
                     leading-7
-                    max-w-[330px]
+                    max-w-full
+                    sm:max-w-[340px]
                     font-semibold
                     text-left
                     text-gray-300
@@ -178,22 +238,41 @@ export default function HeroSection() {
           {/* RIGHT SIDE */}
           {/* ===================================================== */}
 
-          <div className="flex h-[650px] flex-col gap-5">
+          <div
+          className="
+          flex
+          flex-col
+          gap-5
+
+          w-full
+          h-full
+
+          lg:h-[650px]
+          ">
 
             {/* Large Info Card Placeholder */}
 
             <div
               className="
-                h-[490px]
-                rounded-[24px]
-                bg-black
-                p-12
-                text-white
+              rounded-[30px]
+              bg-black
+              text-white
+
+              min-h-[250px]
+              p-8
+
+              sm:min-h-[300px]
+              sm:p-10
+
+              lg:h-[490px]
+              lg:p-12
               "
             >
               <p
                 className="
-                  text-5xl
+                  text-3xl
+                  sm:text-4xl
+                  lg:text-3xl
                   font-black
                   italic
                   uppercase
@@ -212,7 +291,7 @@ export default function HeroSection() {
                 Alumni.
               </p>
 
-              <div className="mt-12 border-t border-white/15 pt-8">
+              <div className="mt-8 lg:mt-12 border-t border-white/15 pt-8">
 
                 <p className="text-xs uppercase tracking-[0.35em] text-gray-500">
                   Backed By
@@ -234,7 +313,19 @@ export default function HeroSection() {
             {/* Bottom Statistics */}
             {/* ===================================================== */}
 
-            <div className="grid flex-1 grid-cols-2 gap-5">
+            <div
+              className="
+                grid
+                grid-cols-2
+                gap-4
+                lg:gap-5
+                lg:grid-rows-1
+
+                lg:h-[140px]
+                min-h-0
+                flex-shrink-0
+              "
+            >
 
             {/* Community Card */}
 
@@ -246,7 +337,10 @@ export default function HeroSection() {
                 },
                 }}
                 className="
+                w-full
                 h-full
+                lg:h-[140px]
+                min-h-0
                 rounded-[24px]
                 border-2 border-neutral-600
                 bg-white
@@ -258,14 +352,21 @@ export default function HeroSection() {
                 hover:shadow-xl
                 "
             >
-                <div className="flex h-full flex-col items-center justify-center">
+                <div className="flex
+                h-full
+                flex-col
+                items-center
+                justify-center
+                text-center">
 
                 <div
                     className="
                     mb-3
                     flex
-                    h-14
-                    w-14
+                    h-12
+                    w-12
+                    lg:h-14
+                    lg:w-14
                     items-center
                     justify-center
                     rounded-full
@@ -295,7 +396,7 @@ export default function HeroSection() {
                     Community
                 </p>
 
-                <h2 className="mt-1 text-4xl font-black tracking-tight text-gray-900">
+                <h2 className="mt-1 text-3xl lg:text-4xl font-black tracking-tight text-gray-900">
                     30+
                 </h2>
 
@@ -318,6 +419,9 @@ export default function HeroSection() {
                 className="
                 relative
                 h-full
+                w-full
+                lg:h-[140px]
+                min-h-0
                 overflow-hidden
                 rounded-[24px]
                 bg-lime-300
@@ -335,10 +439,17 @@ export default function HeroSection() {
                 <div
                 className="
                     absolute
-                    -bottom-10
-                    -right-10
-                    h-32
-                    w-32
+                    h-24
+                    w-24
+
+                    lg:h-32
+                    lg:w-32
+
+                    -bottom-6
+                    -right-6
+
+                    lg:-bottom-10
+                    lg:-right-10
                     rounded-full
                     bg-lime-400/50
                 "
@@ -357,10 +468,14 @@ export default function HeroSection() {
 
                 <div
                     className="
-                    mb-3
+                    mb-2
+                    lg:mb-2
+                    lg:mb-3
                     flex
-                    h-14
-                    w-14
+                    h-12
+                    w-12
+                    lg:h-14
+                    lg:w-14
                     items-center
                     justify-center
                     rounded-full
@@ -379,11 +494,13 @@ export default function HeroSection() {
                     </svg>
                 </div>
 
-                <p className="text-xs font-semibold tracking-[0.3em] uppercase text-black/70">
+                <p className="text-[10px]
+tracking-[0.25em]
+uppercase font-semibold tracking-[0.3em] uppercase text-black/70">
                     Events
                 </p>
 
-                <h2 className="mt-1 text-4xl font-black tracking-tight text-black">
+                <h2 className="mt-1 text-3xl lg:text-4xl font-black tracking-tight text-black">
                     5+
                 </h2>
 

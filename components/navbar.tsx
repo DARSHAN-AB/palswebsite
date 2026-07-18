@@ -86,7 +86,7 @@ export function Navbar() {
         {/* ── LEFT: Logo ──────────────────────────────────────────────── */}
         <Link
           href="/"
-          className="flex items-center gap-3 flex-shrink-0 select-none"
+          className="flex items-center gap-2 sm:gap-3 flex-shrink-0 select-none"
           style={{ transition: 'opacity 200ms ease' }}
           onMouseEnter={e => (e.currentTarget.style.opacity = '0.80')}
           onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
@@ -109,8 +109,8 @@ export function Navbar() {
           </div>
           {/* Wordmark */}
           <span
-            className="hidden sm:inline font-bold text-white"
-            style={{ fontSize: '15px', letterSpacing: '-0.01em' }}
+            className="font-bold text-white text-[14px] sm:text-[15px]"
+            style={{ letterSpacing: '-0.01em' }}
           >
             InnovatorsHub
           </span>
@@ -193,7 +193,7 @@ export function Navbar() {
 
         {/* ── Mobile hamburger ─────────────────────────────────────────── */}
         <button
-          className="lg:hidden p-1.5 rounded-full text-white/70 hover:text-white"
+          className="lg:hidden ml-2 p-1.5 rounded-full text-white/70 hover:text-white"
           style={{
             background: 'rgba(255,255,255,0.08)',
             border:     '1px solid rgba(255,255,255,0.12)',
