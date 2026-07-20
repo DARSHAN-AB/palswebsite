@@ -35,10 +35,11 @@ export const events: Event[] = [
     status:      'LIVE',
     slug:        'impromptu-prompt-league',
     photos: [
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop',
+      'ipl_1.jpg',
+      'ipl_2.jpg',
+      'ipl_3.jpg',
+      'ipl_4.jpg',
+      'ipl_5.jpg',
     ],
   },
   {
@@ -56,9 +57,14 @@ export const events: Event[] = [
     status:      'PAST',
     slug:        'think-2-impact-2026',
     photos: [
-      'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=600&fit=crop',
+      't2i_1.jpg',
+      't2i_2.jpg',
+      't2i_3.jpg',
+      't2i_4.jpg',
+      't2i_5.jpg',
+      't2i_6.jpg',
+      't2i_7.jpg',
+      't2i_8.jpg',
     ],
   },
 ]

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Search, ArrowUpRight, Pin, Bell } from "lucide-react";
 import { events } from "@/data/events";
@@ -18,6 +19,7 @@ interface Announcement {
   tag:     Tag;
   pinned:  boolean;
   body:    string;
+  href:    string;
 }
 
 const formatAnnouncementDate = (value: Date) =>
@@ -50,19 +52,21 @@ const buildAnnouncements = (): Announcement[] => {
     announcements.push({
       id: 1,
       title: `${think2Impact.title} Registration Window Closed`,
-      date: formatAnnouncementDate(TODAY),
+      date: formatAnnouncementDate(announcementDate),
       tag: "Recap",
       pinned: false,
       body: `Registration for ${think2Impact.title} has now closed. Thank you to everyone who made the event a success.\nEvent date: ${formatEventDate(thinkDate)}.`,
+      href: `/events/${think2Impact.slug}`,
     });
 
     announcements.push({
       id: 4,
       title: `${think2Impact.title} Gallery is Live`,
-      date: formatAnnouncementDate(TODAY),
+      date: formatAnnouncementDate(announcementDate),
       tag: "Recap",
       pinned: false,
       body: `Photographs from ${think2Impact.title} have now been uploaded to the website gallery and students can visit the Gallery page to relive the event highlights.\nEvent date: ${formatEventDate(thinkDate)}.`,
+      href: "/gallery",
     });
   }
 
@@ -78,6 +82,7 @@ const buildAnnouncements = (): Announcement[] => {
       tag: "General",
       pinned: true,
       body: `PALS Club BMSIT&M officially launches alongside ${impromptu.title}, welcoming students into the innovation community and introducing upcoming hackathons, workshops, and technical events.\nEvent date: ${formatEventDate(impromptuDate)}.`,
+      href: `/events/${impromptu.slug}`,
     });
 
     announcements.push({
@@ -87,6 +92,7 @@ const buildAnnouncements = (): Announcement[] => {
       tag: "Hackathon",
       pinned: true,
       body: `Registrations for ${impromptu.title} are now open and students are encouraged to register before the deadline. Seats are limited. ${impromptu.description}\nEvent date: ${formatEventDate(impromptuDate)}.`,
+      href: `/events/${impromptu.slug}`,
     });
   }
 
@@ -117,11 +123,12 @@ const TAG_STYLE: Record<Tag, { bg: string; color: string }> = {
 };
 
 // ─── Circular arrow button (same as Events cards) ─────────────────────────
-function CircleArrow({ cardHov }: { cardHov: boolean }) {
+function CircleArrow({ cardHov, href }: { cardHov: boolean; href: string }) {
   const [hov, setHov] = useState(false);
   const active = hov || cardHov;
   return (
-    <div
+    <Link
+      href={href}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
@@ -135,7 +142,7 @@ function CircleArrow({ cardHov }: { cardHov: boolean }) {
       }}
     >
       <ArrowUpRight size={14} strokeWidth={2.5} style={{ color: active ? "#000" : "#fff" }} />
-    </div>
+    </Link>
   );
 }
 
@@ -202,7 +209,7 @@ function FeaturedCard({ a, index }: { a: Announcement; index: number }) {
             <span style={{ fontSize: "11px", color: "#bbb" }}>
               Posted by <span style={{ color: "#555", fontWeight: 600 }}>PALS Club</span>
             </span>
-            <CircleArrow cardHov={cardHov} />
+            <CircleArrow cardHov={cardHov} href={a.href} />
           </div>
         </div>
       </div>
@@ -271,7 +278,7 @@ function AnnouncementCard({ a, index }: { a: Announcement; index: number }) {
             <span style={{ fontSize: "11px", color: "#bbb" }}>
               <span style={{ color: "#555", fontWeight: 600 }}>PALS Club</span>
             </span>
-            <CircleArrow cardHov={cardHov} />
+            <CircleArrow cardHov={cardHov} href={a.href} />
           </div>
         </div>
       </div>

@@ -370,7 +370,7 @@ export default function Think2ImpactPage() {
                       Facing any issues with event registration or the website? Feel free to contact the developer.
                     </p>
                     <p className="mt-2 text-[11px] font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>
-                      Darshan Gowda
+                      Darshan A B
                     </p>
                     <a
                       href="mailto:24ug1byai417@bmsit.in"
