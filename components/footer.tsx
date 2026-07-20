@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, AtSign, Code, MessageCircle } from "lucide-react";
+import { Mail } from "lucide-react";
 
 // ─── Stagger entrance ─────────────────────────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -21,12 +21,37 @@ const colItem = {
 // ─── Accent yellow (matches reference headings) ───────────────────────────
 const YELLOW = "#F5C518";
 
-// ─── Social icon button ───────────────────────────────────────────────────
-function SocialBtn({ icon, label }: { icon: React.ReactNode; label: string }) {
-  const [hov, setHov] = useState(false);
+function InstagramIcon() {
   return (
-    <button
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6.94 8.5A1.56 1.56 0 1 0 6.94 5.38a1.56 1.56 0 0 0 0 3.12Z" />
+      <path d="M5.5 9.5h2.88v8H5.5z" />
+      <path d="M11.5 17.5h2.88v-4.02c0-1.22.98-2.2 2.2-2.2h.03c1.22 0 2.2.98 2.2 2.2v4.02h2.88v-4.7c0-3.18-2.58-5.76-5.76-5.76s-5.76 2.58-5.76 5.76z" />
+    </svg>
+  );
+}
+
+// ─── Social icon button ───────────────────────────────────────────────────
+function SocialBtn({ icon, label, href }: { icon: React.ReactNode; label: string; href: string }) {
+  const [hov, setHov] = useState(false);
+  const isExternal = href.startsWith("http");
+
+  return (
+    <a
+      href={href}
       aria-label={label}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
@@ -42,7 +67,7 @@ function SocialBtn({ icon, label }: { icon: React.ReactNode; label: string }) {
       }}
     >
       {icon}
-    </button>
+    </a>
   );
 }
 
@@ -187,10 +212,9 @@ export function Footer() {
 
               {/* Social icons */}
               <div className="flex gap-2 pt-1">
-                <SocialBtn icon={<Globe       size={16} />} label="LinkedIn"  />
-                <SocialBtn icon={<AtSign      size={16} />} label="Instagram" />
-                <SocialBtn icon={<Code        size={16} />} label="GitHub"    />
-                <SocialBtn icon={<MessageCircle size={16} />} label="Discord" />
+                <SocialBtn icon={<InstagramIcon />} label="Instagram" href="https://instagram.com/pals.x.bmsit" />
+                <SocialBtn icon={<LinkedInIcon />} label="LinkedIn" href="https://www.linkedin.com/company/pals-bmsit/posts/" />
+                <SocialBtn icon={<Mail size={16} />} label="Email" href="mailto:24ug1byai417@bmsit.in" />
               </div>
             </motion.div>
 

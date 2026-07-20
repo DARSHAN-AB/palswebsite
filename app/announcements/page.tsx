@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Search, ArrowUpRight, Pin, Bell } from "lucide-react";
+import { events } from "@/data/events";
 
 // ─── Design tokens (same as Events page) ─────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -19,13 +20,80 @@ interface Announcement {
   body:    string;
 }
 
-const ANNOUNCEMENTS: Announcement[] = [
-  { id: 1, title: "Registrations Open: Annual Hackathon 2025",   date: "July 10, 2025",  tag: "Hackathon",  pinned: true,  body: "Our flagship 48-hour hackathon is back! Form a team of up to 4, pick a challenge track, and build something amazing. Prizes worth $5,000 up for grabs. Register before August 1." },
-  { id: 2, title: "New Semester Membership Drive",                date: "July 5, 2025",   tag: "Membership", pinned: true,  body: "Welcome to the new semester! We are accepting new members for 2025–26. Fill in the interest form or visit us at the Student Activities Fair on July 20." },
-  { id: 3, title: "Workshop Series: Generative AI Fundamentals",  date: "June 28, 2025",  tag: "Workshop",   pinned: false, body: "A three-part workshop series on Generative AI begins July 15. Sessions will cover prompting, fine-tuning, and building with APIs. Open to all members." },
-  { id: 4, title: "Industry Visit: Tech Campus Tour",             date: "June 20, 2025",  tag: "Visit",      pinned: false, body: "We've secured spots for 30 members to tour a leading tech company's campus in the city. Includes office tour, Q&A with engineers, and networking lunch." },
-  { id: 5, title: "Speaker Session Recap — Future of Robotics",  date: "June 14, 2025",  tag: "Recap",      pinned: false, body: "Thank you to everyone who attended last week's speaker session. Slides and recording are now available. Stay tuned for next month's event." },
-];
+const formatAnnouncementDate = (value: Date) =>
+  new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "2-digit", month: "short" }).format(value);
+
+const formatEventDate = (value: Date) =>
+  new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(value);
+
+const TODAY = new Date(2026, 6, 20);
+
+const getEventBySlug = (slug: string) => events.find((event) => event.slug === slug);
+
+const buildAnnouncements = (): Announcement[] => {
+  const think2Impact = getEventBySlug("think-2-impact-2026");
+  const impromptu = getEventBySlug("impromptu-prompt-league");
+
+  const toDate = (value: string) => {
+    const [year, month, day] = value.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  const announcements: Announcement[] = [];
+
+  if (think2Impact) {
+    const thinkDate = toDate(think2Impact.date);
+
+    const announcementDate = new Date(thinkDate);
+    announcementDate.setMonth(announcementDate.getMonth() - 1);
+
+    announcements.push({
+      id: 1,
+      title: `${think2Impact.title} Registration Window Closed`,
+      date: formatAnnouncementDate(TODAY),
+      tag: "Recap",
+      pinned: false,
+      body: `Registration for ${think2Impact.title} has now closed. Thank you to everyone who made the event a success.\nEvent date: ${formatEventDate(thinkDate)}.`,
+    });
+
+    announcements.push({
+      id: 4,
+      title: `${think2Impact.title} Gallery is Live`,
+      date: formatAnnouncementDate(TODAY),
+      tag: "Recap",
+      pinned: false,
+      body: `Photographs from ${think2Impact.title} have now been uploaded to the website gallery and students can visit the Gallery page to relive the event highlights.\nEvent date: ${formatEventDate(thinkDate)}.`,
+    });
+  }
+
+  if (impromptu) {
+    const impromptuDate = toDate(impromptu.date);
+    const announcementDate = new Date(impromptuDate);
+    announcementDate.setDate(announcementDate.getDate() - 14);
+
+    announcements.push({
+      id: 2,
+      title: "Official Launch of PALS Club BMSIT&M",
+      date: formatAnnouncementDate(TODAY),
+      tag: "General",
+      pinned: true,
+      body: `PALS Club BMSIT&M officially launches alongside ${impromptu.title}, welcoming students into the innovation community and introducing upcoming hackathons, workshops, and technical events.\nEvent date: ${formatEventDate(impromptuDate)}.`,
+    });
+
+    announcements.push({
+      id: 3,
+      title: `${impromptu.title} Registrations are Live!`,
+      date: formatAnnouncementDate(TODAY),
+      tag: "Hackathon",
+      pinned: true,
+      body: `Registrations for ${impromptu.title} are now open and students are encouraged to register before the deadline. Seats are limited. ${impromptu.description}\nEvent date: ${formatEventDate(impromptuDate)}.`,
+    });
+  }
+
+  return announcements;
+};
+
+const ANNOUNCEMENTS: Announcement[] = buildAnnouncements();
 
 // ─── Filter keys ──────────────────────────────────────────────────────────
 type FilterKey = "ALL" | Tag;
@@ -127,7 +195,7 @@ function FeaturedCard({ a, index }: { a: Announcement; index: number }) {
           </h2>
 
           {/* Body */}
-          <p style={{ fontSize: "13px", color: "#666", lineHeight: 1.65 }}>{a.body}</p>
+          <p style={{ fontSize: "13px", color: "#666", lineHeight: 1.65, whiteSpace: "pre-line" }}>{a.body}</p>
 
           {/* Bottom */}
           <div className="flex items-center justify-between mt-1">
@@ -190,7 +258,7 @@ function AnnouncementCard({ a, index }: { a: Announcement; index: number }) {
           {/* Body */}
           <p
             className="line-clamp-2"
-            style={{ fontSize: "12px", color: "#777", lineHeight: 1.6 }}
+            style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, whiteSpace: "pre-line" }}
           >
             {a.body}
           </p>

@@ -252,7 +252,10 @@ export default function HeroSection() {
 
             {/* Large Info Card Placeholder */}
 
-            <div
+            <motion.div
+              initial={{ opacity: 0, x: 28, y: 10 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
               className="
               rounded-[30px]
               bg-black
@@ -307,7 +310,7 @@ export default function HeroSection() {
 
               </div>
 
-            </div>
+            </motion.div>
 
             {/* ===================================================== */}
             {/* Bottom Statistics */}
@@ -330,6 +333,9 @@ export default function HeroSection() {
             {/* Community Card */}
 
             <motion.div
+                initial={{ opacity: 0, x: 24, y: 12 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.25, ease: "easeOut" }}
                 whileHover={{
                 y: -8,
                 transition: {
@@ -410,6 +416,9 @@ export default function HeroSection() {
             {/* Events Card */}
 
             <motion.div
+                initial={{ opacity: 0, x: 24, y: 12 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.35, ease: "easeOut" }}
                 whileHover={{
                 y: -8,
                 transition: {

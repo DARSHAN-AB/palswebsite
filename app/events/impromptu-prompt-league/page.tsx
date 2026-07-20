@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from "react";
 import {
   ArrowLeft, CalendarDays, Clock3, MapPin,
   Share2, ArrowDown, Trophy, ArrowRight,
-  Users, Coffee, Mic2, Star, CheckCircle, Zap, X, Loader2,
+  Users, Coffee, Mic2, Star, CheckCircle, Zap, X, Loader2, Mail,
 } from "lucide-react";
 import { getSeatAvailability, submitRegistration } from "@/lib/registration";
 import type { SeatAvailability, RegistrationPayload } from "@/lib/registration";
@@ -673,7 +673,49 @@ export default function ImpromptuPromptLeaguePage() {
                 />
               </motion.div>
 
-              {/* Card 2 — Rewards (lime, matches reference) */}
+              {/* Card 2 — Developer Support */}
+              <motion.div
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.62, delay: 0.20, ease: EASE }}
+                style={{
+                  background:   "#0a0a0a",
+                  borderRadius: "18px",
+                  padding:      "16px",
+                  border:       `1px solid rgba(190,242,100,0.18)`,
+                  boxShadow:    "0 8px 24px rgba(0,0,0,0.16)",
+                }}
+              >
+                <div className="flex items-start gap-2.5">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10" style={{ color: LIME }}>
+                    <Mail size={14} />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-black uppercase" style={{ fontSize: "9px", letterSpacing: "0.2em", color: LIME }}>
+                      Need Help?
+                    </p>
+                    <p className="mt-1 text-[11px] leading-5" style={{ color: "rgba(255,255,255,0.72)" }}>
+                      Facing any issues with event registration or the website? Feel free to contact the developer.
+                    </p>
+                    <p className="mt-2 text-[11px] font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>
+                      Darshan A B
+                    </p>
+                    <a
+                      href="mailto:24ug1byai417@bmsit.in"
+                      className="mt-1 inline-flex items-center gap-1.5 text-[11px] font-semibold transition-colors"
+                      style={{ color: "#fff", transition: "color 200ms ease" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = LIME; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; }}
+                    >
+                      <Mail size={12} />
+                      24ug1byai417@bmsit.in
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Card 3 — Rewards (lime, matches reference) */}
               <motion.div
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
