@@ -4,9 +4,9 @@ import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 
 export const metadata: Metadata = {
-  title: 'PALS Club — University Innovation Club',
-  description: 'The premier university innovation club for students passionate about technology, entrepreneurship, and the future.',
-  icons: { icon: '/icon.svg' },
+  title: 'PALS Club — An IIT alumni Club',
+  description: 'The premier BMSIT innovation club for students passionate about technology, entrepreneurship, and the future.',
+  icons: { icon: '/palslogo.ico' },
 }
 
 export const viewport: Viewport = {
