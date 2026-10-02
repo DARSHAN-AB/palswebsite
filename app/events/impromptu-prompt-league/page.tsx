@@ -361,7 +361,7 @@ function RegistrationModal({ onClose }: { onClose: () => void }) {
 export default function ImpromptuPromptLeaguePage() {
     // Event End Date & Time
     // Format: YYYY-MM-DDTHH:mm:ss
-    const eventDate = new Date("2026-08-20T09:00:00");
+    const eventDate = new Date("2026-12-30T09:00:00");
 
     const [timeLeft, setTimeLeft] = useState({
     days: "00",
@@ -386,7 +386,7 @@ export default function ImpromptuPromptLeaguePage() {
         const difference = eventDate.getTime() - now.getTime();
 
         if (difference <= 0) {
-        setIsPast(false);
+        setIsPast(true);
 
         setTimeLeft({
             days: "00",
